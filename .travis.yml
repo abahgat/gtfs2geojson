@@ -7,4 +7,4 @@ python:
   - "3.3"
 install:
   - "pip install -r requirements.txt --use-mirrors"
-script: gtfs2geojson_test
+script: python gtfs2geojson_test.py
