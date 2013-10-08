@@ -7,11 +7,20 @@ import csv
 import geojson
 import os
 import sys
+import tempfile
+import zipfile
 
 STOPS_FILE_NAME = 'stops.txt'
 STOP_TIMES_FILE_NAME = 'stop_times.txt'
 
-def read(directory):
+def read_from_zip(filename):
+  """Read GTFS data from the specified zip file."""
+  with zipfile.ZipFile(filename) as archive:
+    temp_dir = tempfile.mkdtemp(suffix='gtfs2geojson')
+    archive.extractall(temp_dir)
+    return read_from_directory(temp_dir)
+
+def read_from_directory(directory):
   """Read a GTFS directory and convert it to a GeoJSON feature collection."""
   # TODO(abahgat): raise error if directory does not exist
   with open(os.path.join(directory, STOPS_FILE_NAME), 'r') as stops_file:

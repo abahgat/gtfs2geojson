@@ -1,0 +1,4 @@
+trip_id,arrival_time,departure_time,stop_id,stop_sequence,stop_headsign,pickup_type,drop_off_time,shape_dist_traveled
+AWE1,0:06:10,0:06:10,S1,1,0,0,0
+AWD1,0:06:10,0:06:10,S1,1,0,0,0
+AWD1,,,S2,2,0,0,0
