@@ -11,7 +11,8 @@ import sys
 STOPS_FILE_NAME = 'stops.txt'
 STOP_TIMES_FILE_NAME = 'stop_times.txt'
 
-def convert(directory):
+def read(directory):
+  """Read a GTFS directory and convert it to a GeoJSON feature collection."""
   # TODO(abahgat): raise error if directory does not exist
   with open(os.path.join(directory, STOPS_FILE_NAME), 'r') as stops_file:
     reader = csv.DictReader(stops_file)
@@ -32,13 +33,15 @@ def convert(directory):
       stop_id = row['stop_id']
       features[stop_id].properties['count'] += 1
 
-  collection = geojson.FeatureCollection(features=features.values())
-  print geojson.dumps(collection)
+  return geojson.FeatureCollection(features=features.values())
+
+def stringify(item):
+  return geojson.dumps(item)
 
 def main(argv):
   if len(argv) < 2:
     sys.exit('Usage: %s GTFS_DIRECTORY.' % argv[0])
-  convert(argv[1])
+  stringify(read(argv[1]))
 
 if __name__ == '__main__':
   main(sys.argv)
