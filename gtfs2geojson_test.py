@@ -24,7 +24,6 @@ class TestGtfs2Geojson(unittest.TestCase):
             id='S2')
     }
 
-
   def test_main_without_args_raises_error(self):
     with self.assertRaises(SystemExit):
       gtfs2geojson.main(['gtfs2geojson.py'])
@@ -55,6 +54,14 @@ class TestGtfs2Geojson(unittest.TestCase):
       self.assertEqual('Point', feature.geometry.type)
       self.assertEqual(self.SAMPLE_COUNTS[feature.id],
                        feature.properties['count'])
+
+  def test_convert_with_non_existing_file_fails(self):
+    with self.assertRaises(gtfs2geojson.InputFileError):
+      gtfs2geojson.convert('banana.txt')
+
+  def test_convert_with_non_existing_zipfile_fails(self):
+    with self.assertRaises(gtfs2geojson.InputFileError):
+      gtfs2geojson.convert('banana.zip')
 
 if __name__ == '__main__':
   unittest.main()

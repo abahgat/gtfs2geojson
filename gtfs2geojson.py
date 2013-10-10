@@ -44,13 +44,32 @@ def read_from_directory(directory):
 
   return geojson.FeatureCollection(features=features.values())
 
+def convert(filename):
+  if not os.path.exists(filename):
+    raise InputFileError('The specified file was not found: %s' % filename)
+  output = None
+  if filename.endswith('.zip'):
+    output = read_from_zip(filename)
+  elif os.path.isdir(filename):
+    output = read_from_directory(filename)
+  else:
+    raise InputFileError('Unrecognized input file, must be zip or directory')
+  return stringify(output)
+
 def stringify(item):
   return geojson.dumps(item)
 
 def main(argv):
   if len(argv) < 2:
     sys.exit('Usage: %s GTFS_DIRECTORY.' % argv[0])
-  stringify(read(argv[1]))
+  print convert(argv[1])
+
+
+class Error(Exception):
+  pass
+
+class InputFileError(Error):
+  pass
 
 if __name__ == '__main__':
   main(sys.argv)
