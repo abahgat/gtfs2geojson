@@ -29,8 +29,8 @@ def read_from_directory(directory):
     for row in reader:
       stop_id = row['stop_id']
       name = row['stop_name']
-      latitude = row['stop_lat']
-      longitude = row['stop_lon']
+      latitude = float(row['stop_lat'])
+      longitude = float(row['stop_lon'])
       feature = geojson.Feature(id=stop_id,
                                 geometry=geojson.Point([longitude, latitude]),
                                 properties={'count': 0,

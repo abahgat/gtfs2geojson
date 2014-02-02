@@ -13,13 +13,13 @@ class TestGtfs2Geojson(unittest.TestCase):
         'STAGECOACH': 3}
     self.MINI_POINTS = {
         'S1': geojson.Feature(
-            geometry={'type': 'Point', 'coordinates': ['-122.431282',
-                                                       '37.728631']},
+            geometry={'type': 'Point', 'coordinates': [-122.431282,
+                                                       37.728631]},
             properties={'count': 2, 'name': 'Mission St. & Silver Ave.'},
             id='S1'),
         'S2': geojson.Feature(
-            geometry={'type': 'Point', 'coordinates': ['-122.422482',
-                                                       '37.74103']},
+            geometry={'type': 'Point', 'coordinates': [-122.422482,
+                                                       37.74103]},
             properties={'count': 1, 'name': 'Mission St. & Cortland Ave.'},
             id='S2')
     }
